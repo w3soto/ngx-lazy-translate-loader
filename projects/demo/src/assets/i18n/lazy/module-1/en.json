@@ -1,3 +1,6 @@
 {
-  "hello": "Hello"
+  "lazy-module-1": {
+    "text1": "Translation files are loaded via router resolver",
+    "text2": "English text for module [lazy-module-1]"
+  }
 }

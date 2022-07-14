@@ -12,9 +12,9 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
-      "ngx-translate-lazy-loader": [
-        "dist/ngx-translate-lazy-loader/ngx-translate-lazy-loader",
-        "dist/ngx-translate-lazy-loader"
+      "ngx-lazy-translate-loader": [
+        "dist/ngx-lazy-translate-loader/ngx-lazy-translate-loader",
+        "dist/ngx-lazy-translate-loader"
       ]
     },
     "declaration": false,

@@ -1,6 +1,5 @@
 {
-  "lazy-module-1": {
-    "text1": "Súbory s prekladom sú nahrané pomocou resolver-u",
-    "text2": "Slovenský text pre modul [lazy-module-1]"
+  "module-1": {
+    "text": "Nejaká textová správa"
   }
 }

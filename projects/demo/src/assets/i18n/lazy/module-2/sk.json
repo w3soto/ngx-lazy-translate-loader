@@ -1,5 +1,6 @@
 {
-  "lazy-module-1": {
-    "text": "Slovenský text pre modul [lazy-module-1]"
+  "lazy-module-2": {
+    "text1": "Súbory s prekladom sú nahrané v konštruktore modulu",
+    "text2": "Slovenský text pre druhý modul [lazy-module-2]"
   }
 }

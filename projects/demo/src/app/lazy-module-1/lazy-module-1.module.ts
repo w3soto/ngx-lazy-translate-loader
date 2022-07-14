@@ -1,12 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { PanelComponent } from './panel/panel.component';
+import { RouterModule } from "@angular/router";
+import { TranslateModule } from "@ngx-translate/core";
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    PanelComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    TranslateModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: PanelComponent
+      }
+    ])
   ]
 })
 export class LazyModule1Module { }

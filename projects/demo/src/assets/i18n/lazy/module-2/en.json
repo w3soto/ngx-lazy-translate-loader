@@ -1,5 +1,6 @@
 {
-  "lazy-module-1": {
-    "text": "English text for module [lazy-module-1]"
+  "lazy-module-2": {
+    "text1": "Translation files are loaded in module's constructor",
+    "text2": "English text for second module [lazy-module-2]"
   }
 }
