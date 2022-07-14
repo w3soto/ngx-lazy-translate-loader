@@ -16,7 +16,7 @@ function TranslateLoaderFactory(http: HttpClient): TranslateLoader {
     basePath: './assets/i18n',  // default
     suffix: '.json', // default,
     modulePathKey: 'i18nPath', // default
-    // will be loaded immediately
+    // eager translation paths
     paths: [
       'static/module-1', // relative to "basePath"
       './assets/i18n/static/module-2' // absolute (starts with / or ./)
@@ -43,7 +43,7 @@ export class AppModule { }
 
 ### Load translation files with resolver 
 
-Translation file will be loaded before first render 
+Note: This solution guarantees that translation file will be loaded before module is loaded 
 ```typescript
 const routes: Routes = [
   {
@@ -61,7 +61,6 @@ const routes: Routes = [
 
 ### Load translation files in module's constructor
 
-Translation file will be loaded after first render 
 ```typescript
 @NgModule({
   imports: [
@@ -75,4 +74,5 @@ export class LazyModule {
   }
 
 }
+
 ```
