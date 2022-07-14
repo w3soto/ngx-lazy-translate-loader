@@ -1,27 +1,78 @@
-# NgxTranslateLazyLoader
+# NgxLazyTranslateLoader
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
+Lazy module translation loader 
 
-## Development server
+## Installation
+```shell
+npm -i @w3soto/ngx-lazy-translate-loader
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Initialization
 
-## Code scaffolding
+```typescript
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+function TranslateLoaderFactory(http: HttpClient): TranslateLoader {
+  return new NgxLazyTranslateHttpLoader(http, {
+    basePath: './assets/i18n',  // default
+    suffix: '.json', // default,
+    modulePathKey: 'i18nPath', // default
+    // will be loaded immediately
+    paths: [
+      'static/module-1', // relative to "basePath"
+      './assets/i18n/static/module-2' // absolute (starts with / or ./)
+    ]
+  });
+}
 
-## Build
+@NgModule({
+  ...
+  imports: [
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: TranslateLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
+  ],
+  ...
+})
+export class AppModule { }
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```
 
-## Running unit tests
+### Load translation files with resolver 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Translation file will be loaded before first render 
+```typescript
+const routes: Routes = [
+  {
+    path: 'lazy-module',
+    resolve: {
+      i18n: NgxLazyTranslateResolver
+    },
+    data: {
+      i18nPath: 'lazy/module' // relative path
+    },
+    loadChildren: () => import('./lazy-module/lazy-module.module').then(m => m.LazyModuleModule)
+  },
+];
+```
 
-## Running end-to-end tests
+### Load translation files in module's constructor
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Translation file will be loaded after first render 
+```typescript
+@NgModule({
+  imports: [
+    TranslateModule,
+  ]
+})
+export class LazyModule {
 
-## Further help
+  constructor(i18n: NgxLazyTranslateServiceWrapper) {
+    i18n.registerModuleTranslation('./assets/i18n/lazy/module', true);
+  }
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+}
+```

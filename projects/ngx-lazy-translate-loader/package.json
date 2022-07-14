@@ -1,6 +1,9 @@
 {
   "name": "@w3soto/ngx-lazy-translate-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "license": "MIT",
+  "homepage": "https://github.com/w3soto/ngx-lazy-translate-loader#readme",
+  "keywords": ["angular", "ngx-translate", "lazy", "loader", "module-loader", "i18n", "translate"],
   "peerDependencies": {
     "@angular/common": ">=10.0.0",
     "@angular/core": ">=10.0.0",

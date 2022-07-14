@@ -1,8 +1,5 @@
-// import { NgModule } from '@angular/core';
-//
-//
-// @NgModule({
-//   exports: [
-//   ]
-// })
-// export class NgxTranslateLazyLoaderModule { }
+import { NgModule } from '@angular/core';
+
+
+@NgModule({})
+export class NgxLazyTranslateLoaderModule { }
