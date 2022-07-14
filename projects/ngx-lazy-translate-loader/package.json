@@ -1,6 +1,6 @@
 {
   "name": "@w3soto/ngx-lazy-translate-loader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "homepage": "https://github.com/w3soto/ngx-lazy-translate-loader#readme",
   "keywords": ["angular", "ngx-translate", "lazy", "loader", "module-loader", "i18n", "translate"],

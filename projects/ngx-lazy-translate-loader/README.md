@@ -1,24 +1,78 @@
-# NgxTranslateLazyLoader
+# NgxLazyTranslateLoader
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.0.
+Lazy module translation loader 
 
-## Code scaffolding
+## Installation
+```shell
+npm -i @w3soto/ngx-lazy-translate-loader
+```
 
-Run `ng generate component component-name --project ngx-translate-lazy-loader` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-translate-lazy-loader`.
-> Note: Don't forget to add `--project ngx-translate-lazy-loader` or else it will be added to the default project in your `angular.json` file. 
+## Initialization
 
-## Build
+```typescript
 
-Run `ng build ngx-translate-lazy-loader` to build the project. The build artifacts will be stored in the `dist/` directory.
+function TranslateLoaderFactory(http: HttpClient): TranslateLoader {
+  return new NgxLazyTranslateHttpLoader(http, {
+    basePath: './assets/i18n',  // default
+    suffix: '.json', // default,
+    modulePathKey: 'i18nPath', // default
+    // eager translation paths
+    paths: [
+      'static/module-1', // relative to "basePath"
+      './assets/i18n/static/module-2' // absolute (starts with / or ./)
+    ]
+  });
+}
 
-## Publishing
+@NgModule({
+  ...
+  imports: [
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: TranslateLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
+  ],
+  ...
+})
+export class AppModule { }
 
-After building your library with `ng build ngx-translate-lazy-loader`, go to the dist folder `cd dist/ngx-translate-lazy-loader` and run `npm publish`.
+```
 
-## Running unit tests
+### Load translation files with resolver 
 
-Run `ng test ngx-translate-lazy-loader` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Note: This solution guarantees that translation file will be loaded before module is loaded 
+```typescript
+const routes: Routes = [
+  {
+    path: 'lazy-module',
+    resolve: {
+      i18n: NgxLazyTranslateResolver
+    },
+    data: {
+      i18nPath: 'lazy/module' // relative path
+    },
+    loadChildren: () => import('./lazy-module/lazy-module.module').then(m => m.LazyModuleModule)
+  },
+];
+```
 
-## Further help
+### Load translation files in module's constructor
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```typescript
+@NgModule({
+  imports: [
+    TranslateModule,
+  ]
+})
+export class LazyModule {
+
+  constructor(i18n: NgxLazyTranslateServiceWrapper) {
+    i18n.registerModuleTranslation('./assets/i18n/lazy/module', true);
+  }
+
+}
+
+```
